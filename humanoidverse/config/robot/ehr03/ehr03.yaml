@@ -1,0 +1,393 @@
+# @package _global_
+
+defaults:
+  - robot_base
+
+robot:
+  # Observation parameters
+  num_bodies: 28
+  dof_obs_size: 27
+  actions_dim: 27
+  lower_body_actions_dim: 15 
+  upper_body_actions_dim: 8 
+  policy_obs_dim: -1 
+  critic_obs_dim: -1
+
+  key_bodies: ["l_leg_l6", "r_leg_l6"]
+  contact_bodies: [ "l_leg_l6", "r_leg_l6" ]
+  num_feet: 2
+  right_foot_name: "r_leg_l6"
+  left_foot_name: "l_leg_l6"
+  foot_name: "leg_l6"
+  knee_name: "leg_l4"
+  has_torso: True
+  torso_name: "torso"
+  has_upper_body_dof: True
+  dof_names: ['l_leg_1','l_leg_2','l_leg_3','l_leg_4','l_leg_5','l_leg_6',
+              'r_leg_1','r_leg_2','r_leg_3','r_leg_4','r_leg_5','r_leg_6',
+              'torso_1','torso_2','torso_3',
+              'l_arm_1','l_arm_2','l_arm_3','l_arm_4','l_arm_5','l_arm_6',
+              'r_arm_1','r_arm_2','r_arm_3','r_arm_4','r_arm_5','r_arm_6']
+  upper_dof_names: ['l_arm_1','l_arm_2','l_arm_3','l_arm_4','l_arm_5','l_arm_6',
+                    'r_arm_1','r_arm_2','r_arm_3','r_arm_4','r_arm_5','r_arm_6']
+  upper_left_arm_dof_names: ['l_arm_1','l_arm_2','l_arm_3','l_arm_4','l_arm_5','l_arm_6']
+  upper_right_arm_dof_names: ['r_arm_1','r_arm_2','r_arm_3','r_arm_4','r_arm_5','r_arm_6']
+  lower_dof_names: ['l_leg_1','l_leg_2','l_leg_3','l_leg_4','l_leg_5','l_leg_6',
+                    'r_leg_1','r_leg_2','r_leg_3','r_leg_4','r_leg_5','r_leg_6',
+                    'torso_1','torso_2','torso_3']
+  waist_dof_names: ['torso_1','torso_2','torso_3']
+  dof_pos_lower_limit_list: [
+    -1.57, -0.20, -1.57, -0.523, -0.84,  -0.45,     # left leg
+    -1.57, -1.57, -1.57, -0.523, -0.84, -0.45,     # right leg
+    -2.10, -0.523, -0.523,                         # torso
+    -3.58, -0.174, -1.57, -1.74,  -0.37, -0.37,   # left arm
+    -3.58, -2.966, -1.57, -1.74, -0.37, -0.385    # right arm
+  ]
+  dof_pos_upper_limit_list: [
+    1.57,  1.57,  1.57,  1.57,  0.70,  0.45,     # left leg
+    1.57,  0.20,  1.57,  1.57,  0.70,  0.45,     # right leg
+    2.10,  0.523, 0.523,                         # torso
+    2.71,  2.966, 1.57,  0.785, 0.37,  0.385,    # left arm
+    2.71,  0.174, 1.57,  0.785, 0.37,  0.37      # right arm
+  ]
+  # --- 速度上限 ---------------------------------------------
+  dof_vel_limit_list: [
+    30, 30, 30, 30, 30, 30,          # left leg 6
+    30, 30, 30, 30, 30, 30,          # right leg 6
+    30, 30, 30,                      # torso 3
+    20, 20, 3, 20, 20, 3,          # left arm 6
+    20, 20, 3, 20, 20, 3           # right arm 6
+  ]
+
+  # --- 力矩上限 ---------------------------------------------
+  dof_effort_limit_list: [
+    100, 100, 100, 100, 50, 50,    # left leg 6
+    100, 100, 100, 100, 50, 50,    # right leg 6
+    100, 100, 100,                   # torso 3
+    20, 20, 20, 20, 20, 20,    # left arm 6
+    20, 20, 20, 20, 20, 20     # right arm 6
+  ]
+
+  
+  # only apply for isaacsim
+  dof_armature_list: [0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+                      0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+                      0.03, 0.03, 0.03,
+                      0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+                      0.04, 0.03, 0.03, 0.03, 0.03, 0.03]
+  # only apply for isaacsim
+  dof_joint_friction_list: [0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+                            0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+                            0.03, 0.03, 0.03,
+                            0.03, 0.03, 0.03, 0.03, 0.03, 0.03,
+                            0.03, 0.03, 0.03, 0.03, 0.03, 0.03]
+
+  body_names: ['base_link',
+    'l_leg_l1','l_leg_l2','l_leg_l3','l_leg_l4','l_leg_l5','l_leg_l6',
+    'r_leg_l1','r_leg_l2','r_leg_l3','r_leg_l4','r_leg_l5','r_leg_l6',
+    'torso_l1','torso_l2','torso_l3',
+    'l_arm_l1','l_arm_l2','l_arm_l3','l_arm_l4','l_arm_l5','l_arm_l6',
+    'r_arm_l1','r_arm_l2','r_arm_l3','r_arm_l4','r_arm_l5','r_arm_l6'
+  ]
+
+
+  terminate_after_contacts_on : ["base_link", "leg_l1", "leg_l2", "arm_l1", "arm_l2"]
+  penalize_contacts_on: ["base_link", "leg_l1", "leg_l2", "arm_l1", "arm_l2", "torso", "arm_l3", "arm_l4"]
+  init_state:
+    pos: [0.0, 0.0, 0.85] # x,y,z [m]
+    rot: [0.0, 0.0, 0.0, 1.0] # x,y,z,w [quat] 
+    lin_vel: [0.0, 0.0, 0.0]  # x,y,z [m/s]
+    ang_vel: [0.0, 0.0, 0.0]  # x,y,z [rad/s]
+    default_joint_angles: # = target angles [rad] when action = 0.0
+      # 下肢
+      l_leg_1: 0.     # 对应原 left_hip_pitch
+      l_leg_2: 0.     # knee
+      l_leg_3: 0.
+      l_leg_4: 0.     # ankle_pitch
+      l_leg_5: 0.
+      l_leg_6: 0.
+      r_leg_1: 0.
+      r_leg_2: 0.
+      r_leg_3: 0.
+      r_leg_4: 0.
+      r_leg_5: 0.
+      r_leg_6: 0.
+      # 躯干
+      torso_1: 0.
+      torso_2: 0.
+      torso_3: 0.
+      # 上肢
+      l_arm_1: 0.
+      l_arm_2: 0.
+      l_arm_3: 0.
+      l_arm_4: 0.
+      l_arm_5: 0.
+      l_arm_6: 0.
+      r_arm_1: 0.
+      r_arm_2: 0.
+      r_arm_3: 0.
+      r_arm_4: 0.
+      r_arm_5: 0.
+      r_arm_6: 0.
+
+  control:
+    control_type: P
+    # PD Drive parameters:
+    stiffness: # [N*m/rad]
+      leg_1: 100.0
+      leg_2: 100.0
+      leg_3: 100.0
+      leg_4: 150.0
+      leg_5: 40.0
+      leg_6: 40.0
+
+      torso: 400.0
+
+      arm_1: 50.0
+      arm_2: 50.0
+      arm_3: 50.0
+      arm_4: 50.0
+      arm_5: 20.0
+      arm_6: 20.0
+
+    damping: # [N*m/rad]  # [N*m*s/rad]
+      leg_1: 2.0
+      leg_2: 2.0
+      leg_3: 2.0
+      leg_4: 4.0
+      leg_5: 2.0
+      leg_6: 2.0
+
+      torso: 5.0
+
+      arm_1: 2.0
+      arm_2: 2.0
+      arm_3: 2.0
+      arm_4: 2.0
+      arm_5: 2.0
+      arm_6: 2.0
+
+    # action scale: target angle = actionScale * action + defaultAngle
+    action_scale: 0.25
+    action_clip_value: 100.0
+    clip_torques: True
+
+  asset:
+    collapse_fixed_joints: True # merge bodies connected by fixed joints. Specific fixed joints can be kept by adding " <... dont_collapse="true">
+    replace_cylinder_with_capsule: True
+    flip_visual_attachments: False
+    armature: 0.001 # isaacgym armature is set by this
+    thickness: 0.01
+    max_angular_velocity: 1000.
+    max_linear_velocity: 1000.
+    density: 0.001
+    angular_damping: 0.
+    linear_damping: 0.
+
+    # urdf_file: "g1/23dof_AMAH_I001.urdf" 
+
+    urdf_file: "ehr03/urdf/${robot.asset.robot_type}.urdf"
+    usd_file: "ehr03/${robot.asset.robot_type}.usd"
+    xml_file: "ehr03/urdf/ehr03_simplifed.xml"
+    # xml_file: "g1/${robot.asset.robot_type}_fitmotionONLY.xml"
+    robot_type: ehr03
+    self_collisions: 0 # 1 to disable, 0 to enable self collisions
+    default_dof_drive_mode: 3
+
+    fix_base_link: False # TEST: fix base link to world
+
+  motion:
+    motion_lib_type: 'WJX'
+    motion_file : ???
+    asset:
+      assetRoot: "description/robots/ehr03/"
+      assetFileName: "urdf/ehr03_simplifed.xml"
+
+    humanoid_type: ehr03
+    bias_offset: False
+    has_self_collision: True
+    has_mesh: False
+    has_jt_limit: False
+    has_dof_subset: True
+    has_upright_start: True
+    has_smpl_pd_offset: False
+    remove_toe: False # For humanoid's geom toe
+    motion_sym_loss: False
+    sym_loss_coef: 1
+    big_ankle: True
+
+    has_shape_obs: false
+    has_shape_obs_disc: false
+    has_shape_variation: False
+
+    masterfoot: False
+    freeze_toe: false
+    freeze_hand: False
+    box_body: True
+    real_weight: True
+    real_weight_porpotion_capsules: True
+    real_weight_porpotion_boxes: True
+
+    body_names: [
+      'base_link',
+      "torso_l1", "torso_l2", "torso_l3",
+      'l_arm_l1', 'l_arm_l2', 'l_arm_l3', 'l_arm_l4', 'l_arm_l5', 'l_arm_l6',
+      'r_arm_l1', 'r_arm_l2', 'r_arm_l3', 'r_arm_l4', 'r_arm_l5', 'r_arm_l6',
+      'l_leg_l1', 'l_leg_l2', 'l_leg_l3', 'l_leg_l4', 'l_leg_l5', 'l_leg_l6',
+      'r_leg_l1', 'r_leg_l2', 'r_leg_l3', 'r_leg_l4', 'r_leg_l5', 'r_leg_l6',
+  ]
+    limb_weight_group:
+      - [ 'l_leg_l1', 'l_leg_l2', 'l_leg_l3', 'l_leg_l4', 'l_leg_l5', 'l_leg_l6',  ]
+      - [ 'r_leg_l1', 'r_leg_l2', 'r_leg_l3', 'r_leg_l4', 'r_leg_l5', 'r_leg_l6',  ]
+      - [ "torso_l1", "torso_l2", "torso_l3", 'base_link' ]
+      - [ 'l_arm_l1', 'l_arm_l2', 'l_arm_l3', 'l_arm_l4', 'l_arm_l5', 'l_arm_l6',  ]
+      - [ 'r_leg_l1', 'r_leg_l2', 'r_leg_l3', 'r_leg_l4', 'r_leg_l5', 'r_leg_l6',  ]
+
+    dof_names: ['l_leg_1','l_leg_2','l_leg_3','l_leg_4','l_leg_5','l_leg_6',
+              'r_leg_1','r_leg_2','r_leg_3','r_leg_4','r_leg_5','r_leg_6',
+              'torso_1','torso_2','torso_3',
+              'l_arm_1','l_arm_2','l_arm_3','l_arm_4','l_arm_5','l_arm_6',
+              'r_arm_1','r_arm_2','r_arm_3','r_arm_4','r_arm_5','r_arm_6']
+    right_foot_name: 'r_foot'
+    left_foot_name: 'l_foot'
+
+
+    nums_extend_bodies: 3
+    extend_config:
+      - joint_name: "left_hand_link"
+        parent_name: "l_arm_l6"
+        pos: [ 0.0, 0.0, -0.1 ]
+        rot: [ 1.0, 0.0, 0.0, 0.0 ] # w x y z
+      - joint_name: "right_hand_link"
+        parent_name: "r_arm_l6"
+        pos: [ 0.0, -0.0, -0.1 ]
+        rot: [ 1.0, 0.0, 0.0, 0.0 ] # w x y z
+      - joint_name: "head_link"
+        parent_name: "base_link"
+        pos: [ 0.0, 0.0, 0.42 ]
+        rot: [ 1.0, 0.0, 0.0, 0.0 ] # w x y z
+
+
+    motion_tracking_link:
+      - "left_hand_link"
+      - "right_hand_link"
+      - "head_link"
+
+    lower_body_link:
+      - "base_link"
+      - "l_leg_l1"   # hip pitch
+      - "l_leg_l2"   # hip roll
+      - "l_leg_l3"   # hip yaw
+      - "l_leg_l4"   # knee
+      - "l_leg_l5"   # ankle pitch
+      - "l_leg_l6"   # ankle roll
+      - "r_leg_l1"
+      - "r_leg_l2"
+      - "r_leg_l3"
+      - "r_leg_l4"
+      - "r_leg_l5"
+      - "r_leg_l6"
+      - "torso_l1"   # waist yaw
+      - "torso_l2"   # waist roll
+      - "torso_l3"   # waist pitch
+
+    upper_body_link:
+      - "l_arm_l1"   # shoulder pitch
+      - "l_arm_l2"   # shoulder roll
+      - "l_arm_l3"   # shoulder yaw
+      - "l_arm_l4"   # elbow
+      - "l_arm_l5"   # wrist / hand-1
+      - "l_arm_l6"   # wrist / hand-2
+      - "r_arm_l1"
+      - "r_arm_l2"
+      - "r_arm_l3"
+      - "r_arm_l4"
+      - "r_arm_l5"
+      - "r_arm_l6"
+      - "left_hand_link"
+      - "right_hand_link"
+      - "head_link"
+
+
+    pelvis_link: "base_link"
+    base_link: "torso_l3"
+    hips_link:
+      - "l_leg_l1"
+      - "l_leg_l2"
+      - "l_leg_l3"
+      - "r_leg_l1"
+      - "r_leg_l2"
+      - "r_leg_l3"
+    
+    joint_matches:
+      - ["base_link", "Pelvis"]
+      - ["l_leg_l3", "L_Hip"]
+      - ["l_leg_l4", "L_Knee"]
+      - ["l_leg_l6", "L_Ankle"]
+      - ["r_leg_l3", "R_Hip"]
+      - ["r_leg_l4", "R_Knee"]
+      - ["r_leg_l6", "R_Ankle"]
+      - ["l_arm_l1", "L_Shoulder"]
+      - ["l_arm_l4", "L_Elbow"]
+      - ["left_hand_link", "L_Hand"]
+      - ["r_arm_l1", "R_Shoulder"]
+      - ["r_arm_l4", "R_Elbow"]
+      - ["right_hand_link", "R_Hand"]
+      - ["head_link", "Head"]
+
+
+    smpl_pose_modifier:
+      - Pelvis: "[np.pi/2, 0, np.pi/2]"
+      - L_Shoulder: "[0, 0, -np.pi/2]"
+      - R_Shoulder: "[0, 0, np.pi/2]"
+      - L_Elbow: "[0, -np.pi/2, 0]"
+      - R_Elbow: "[0, np.pi/2, 0]"
+
+    visualization:
+      customize_color : True
+      marker_joint_colors : 
+      - [0.929, 0.867, 0.437] # pelvis                    base_link
+      - [0.0, 0.867, 0.0] # left_hip_yaw_joint            torso_l1
+      - [0.0, 0.867, 0.0] # left_hip_roll_joint            torso_l2
+      - [0.0, 0.867, 0.0] # left_hip_pitch_joint           torso_l3
+      - [0.0, 0.0, 0.437] # left_knee_joint                 l_arm_l1
+      - [0.0, 0.0, 0.437] # left_ankle_pitch_joint          l_arm_l2
+      - [0.0, 0.0, 0.437] # left_ankle_roll_joint           l_arm_l3
+      - [0.0, 0.0, 0.437] # right_hip_yaw_joint             l_arm_l4
+      - [0.0, 0.0, 0.437] # right_hip_roll_joint            l_arm_l5
+      - [0.0, 0.0, 0.437] # right_hip_pitch_joint           l_arm_l6
+      - [0, 0.351, 0.613] # right_knee_joint                    r_arm_l1
+      - [0, 0.351, 0.613] # right_ankle_pitch_joint             r_arm_l2
+      - [0, 0.351, 0.613] # right_ankle_roll_joint              r_arm_l3
+      - [0, 0.351, 0.613] # waist_yaw_joint                     r_arm_l4
+      - [0, 0.351, 0.613] # waist_roll_joint                    r_arm_l5
+      - [0, 0.351, 0.613] # torso_joint (waist_pitch_link)      r_arm_l6
+      - [0.929, 0.0, 0.] # left_shoulder_pitch_joint            l_leg_l1
+      - [0.929, 0.0, 0.] # left_shoulder_roll_joint             l_leg_l2
+      - [0.929, 0.0, 0.] # left_shoulder_yaw_joint              l_leg_l3
+      - [0.929, 0.0, 0.] # left_elbow_joint                     l_leg_l4
+      - [0.929, 0.0, 0.] # right_shoulder_pitch_joint           l_leg_l5
+      - [0.929, 0.0, 0.] # right_shoulder_roll_joint            l_leg_l6
+      - [0.929, 0.0, 0.437] # right_shoulder_yaw_joint          r_leg_l1
+      - [0.929, 0.0, 0.437] # right_elbow_joint                 r_leg_l2
+      - [0.929, 0.0, 0.437] # left_elbow_joint_extend           r_leg_l3
+      - [0.929, 0.0, 0.437] # right_elbow_joint_extend          r_leg_l4
+      - [0.929, 0.0, 0.437] # head_link                         r_leg_l5
+      - [0.929, 0.0, 0.437 ] # right_shoulder_yaw_joint         r_leg_l6
+      - [ 0.0, 0.867, 0.437 ] # right_elbow_joint               left_hand_link
+      - [ 0.0, 0.867, 0.437 ] # left_elbow_joint_extend         right_hand_link
+      - [ 0.9, 0.9, 0.0 ] # right_elbow_joint_extend
+
+# Override motion lib default to use the adapted H1 variant
+# motion_lib:
+#   _target_: phys_anim.utils.motion_lib_h1.H1_MotionLib
+
+# Override simulation config to use the adapted H1 variant
+# env:
+#   config:
+#     simulator:
+#       sim:
+#         fps: 200 # 1/dt , dt = 0.005
+#         control_freq_inv: 4  # decimation
+#         substeps: 1
+

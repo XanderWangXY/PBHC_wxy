@@ -1,0 +1,245 @@
+[
+  {
+    "name": "torso_1",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "torso_l1"
+  },
+  {
+    "name": "torso_2",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "torso_l2"
+  },
+  {
+    "name": "torso_3",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "torso_l3"
+  },
+  {
+    "name": "l_arm_1",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "l_arm_l1"
+  },
+  {
+    "name": "l_arm_2",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "l_arm_l2"
+  },
+  {
+    "name": "l_arm_3",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "l_arm_l3"
+  },
+  {
+    "name": "l_arm_4",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "l_arm_l4"
+  },
+  {
+    "name": "l_arm_5",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "l_arm_l5"
+  },
+  {
+    "name": "l_arm_6",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "l_arm_l6"
+  },
+  {
+    "name": "r_arm_1",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "r_arm_l1"
+  },
+  {
+    "name": "r_arm_2",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "r_arm_l2"
+  },
+  {
+    "name": "r_arm_3",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "r_arm_l3"
+  },
+  {
+    "name": "r_arm_4",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "r_arm_l4"
+  },
+  {
+    "name": "r_arm_5",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "r_arm_l5"
+  },
+  {
+    "name": "r_arm_6",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "r_arm_l6"
+  },
+  {
+    "name": "l_leg_1",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "l_leg_l1"
+  },
+  {
+    "name": "l_leg_2",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "l_leg_l2"
+  },
+  {
+    "name": "l_leg_3",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "l_leg_l3"
+  },
+  {
+    "name": "l_leg_4",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "l_leg_l4"
+  },
+  {
+    "name": "l_leg_5",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "l_leg_l5"
+  },
+  {
+    "name": "l_leg_6",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "l_leg_l6"
+  },
+  {
+    "name": "r_leg_1",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "r_leg_l1"
+  },
+  {
+    "name": "r_leg_2",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "r_leg_l2"
+  },
+  {
+    "name": "r_leg_3",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "parent_body": "r_leg_l3"
+  },
+  {
+    "name": "r_leg_4",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "r_leg_l4"
+  },
+  {
+    "name": "r_leg_5",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parent_body": "r_leg_l5"
+  },
+  {
+    "name": "r_leg_6",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "parent_body": "r_leg_l6"
+  }
+]
