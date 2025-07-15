@@ -135,7 +135,7 @@ class URCIRobotEhr03:
                 self.UpdateObs()
                 
                 action = policy_fn(self.Obs())[0]
-                print('action_his:', self.Obs()['actor_obs'][0][84:436])
+                # print('action_his:', self.Obs()['actor_obs'][0][84:436])
                 if self.BYPASS_ACT: action = np.zeros_like(action)
                 
                 if self.SWITCH_EMA and self.timer <10:

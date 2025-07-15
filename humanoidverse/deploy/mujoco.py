@@ -463,7 +463,7 @@ class MujocoRobot(URCIRobot, ViewerPlugin):
             # print(np.linalg.norm(target_q-self.q), np.linalg.norm(self.dq), np.linalg.norm(tau))
             # self.data.qpos[:3] = np.array([0,0,1])
             self.data.ctrl[:] = tau
-            self.HANG = True
+            # self.HANG = True
             if self.HANG:
                 # self.data.ctrl[14] = 0.5
                 self.data.qpos[:3] = np.array([0,0,1])
