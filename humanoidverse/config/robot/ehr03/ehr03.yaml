@@ -58,8 +58,8 @@ robot:
 
   # --- 力矩上限 ---------------------------------------------
   dof_effort_limit_list: [
-    320.000000,150.000000,150.000000,320.000000,75.000000,75.000000,320.000000,150.000000,150.000000,320.000000,75.000000,75.000000,
-    60.000000,90.000000,60.000000,60.000000,75.000000,36.000000,36.000000,36.000000,36.000000,60.000000,75.000000,36.000000,36.000000,36.000000,36.000000
+    160.000000,100.000000,100.000000,160.000000,40.000000,40.000000,160.000000,100.000000,100.000000,160.000000,40.000000,40.000000,
+    60.000000,90.000000,60.000000,30.000000,40.000000,20.000000,20.000000,20.000000,20.000000,30.000000,40.000000,20.000000,20.000000,20.000000,20.000000
   ]
 
   
@@ -128,31 +128,31 @@ robot:
     control_type: P
     # PD Drive parameters:
     stiffness: # [N*m/rad]
-      leg_1: 200.0
-      leg_2: 200.0
-      leg_3: 200.0
-      leg_4: 300.0
+      leg_1: 150.0
+      leg_2: 100.0
+      leg_3: 100.0
+      leg_4: 150.0
       leg_5: 40.0
       leg_6: 40.0
 
-      torso: 400.0
+      torso: 100.0
 
-      arm_1: 50.0
-      arm_2: 50.0
-      arm_3: 50.0
-      arm_4: 50.0
+      arm_1: 30.0
+      arm_2: 40.0
+      arm_3: 20.0
+      arm_4: 20.0
       arm_5: 20.0
       arm_6: 20.0
 
     damping: # [N*m/rad]  # [N*m*s/rad]
-      leg_1: 8.0
-      leg_2: 8.0
-      leg_3: 8.0
-      leg_4: 10.0
-      leg_5: 5.0
-      leg_6: 5.0
+      leg_1: 4.0
+      leg_2: 2.0
+      leg_3: 2.0
+      leg_4: 4.0
+      leg_5: 3.0
+      leg_6: 3.0
 
-      torso: 5.0
+      torso: 4.0
 
       arm_1: 2.0
       arm_2: 2.0
@@ -170,7 +170,7 @@ robot:
     collapse_fixed_joints: True # merge bodies connected by fixed joints. Specific fixed joints can be kept by adding " <... dont_collapse="true">
     replace_cylinder_with_capsule: True
     flip_visual_attachments: False
-    armature: 0.001 # isaacgym armature is set by this
+    armature: 0.01 # isaacgym armature is set by this
     thickness: 0.01
     max_angular_velocity: 1000.
     max_linear_velocity: 1000.

@@ -34,76 +34,89 @@ def wrap_to_pi_float(angles:float):
 
 
 class MViewerPlugin:
-    # TODO: visualize the motion keypoint in MujocoViewer
+    is_recording = False
+    fps = 30
+    macro_block_size = 16
     is_pause = False
-    
+
     def _make_viewer(self):
         def _key_callback(key):
-                #  Keyboard mapping:
-                #  ----------------
-                #  |   K L ; '    |
-                #  |   , . /      |
-                #  ----------------
-                key_char = chr(key)
-                
-                print(key, key_char)
-                
-                if key == 27: # Esc
-                    self.viewer.close()
-                
-                if key_char == ' ':
-                    self.is_pause = not self.is_pause
-                
-                if key_char == 'w':
-                    self.cmd[1] += 0.1
-                elif key_char == 's':
-                    self.cmd[1] -= 0.1
-                elif key_char == 'a': #
-                    self.cmd[0] += 0.1
-                elif key_char == 'd':
-                    self.cmd[0] -= 0.1
-                elif key_char == 'e':
-                    if self.heading_cmd:
-                        self.cmd[3] = wrap_to_pi_float(self.cmd[3]+np.pi/20)
-                    else:
-                        self.cmd[2] += 0.1
-                elif key_char == 'q': 
-                    if self.heading_cmd:                            
-                        self.cmd[3] = wrap_to_pi_float(self.cmd[3]-np.pi/20)
-                    else:
-                        self.cmd[2] -= 0.1
-                elif key_char == 'r':
-                    self.cmd = np.array(self.cfg.deploy.defcmd)
-                elif key == 257: # Enter
-                    # self.Reset()
-                    self._ref_pid = -2
-                elif key_char == '[':
-                    self._ref_pid -= 1
-                elif key_char == ']':
-                    self._ref_pid += 1
-                
-                print(self.cmd, self._ref_pid)
-        # glfw.set_key_callback(self.viewer.window, _key_callback)
-        ...
+            key_char = chr(key) if key < 256 else ""
+            print(key, key_char)
+
+            if key == 27:  # ESC
+                self.viewer.close()
+            elif key_char == ' ':
+                self.is_pause = not self.is_pause
+            elif key_char == 'w':
+                self.cmd[1] += 0.1
+            elif key_char == 's':
+                self.cmd[1] -= 0.1
+            elif key_char == 'a':
+                self.cmd[0] += 0.1
+            elif key_char == 'd':
+                self.cmd[0] -= 0.1
+            elif key_char == 'e':
+                if self.heading_cmd:
+                    self.cmd[3] = wrap_to_pi_float(self.cmd[3] + np.pi / 20)
+                else:
+                    self.cmd[2] += 0.1
+            elif key_char == 'q':
+                if self.heading_cmd:
+                    self.cmd[3] = wrap_to_pi_float(self.cmd[3] - np.pi / 20)
+                else:
+                    self.cmd[2] -= 0.1
+            elif key_char == 'r':
+                self.cmd = np.array(self.cfg.deploy.defcmd)
+            elif key == 257:  # Enter
+                self._ref_pid = -2
+            elif key_char == '[':
+                self._ref_pid -= 1
+            elif key_char == ']':
+                self._ref_pid += 1
+            elif 48 <= key <= 57:
+                self._ref_pid = key - 48
+
+            print(self.cmd, self._ref_pid)
+
         self.viewer = mujoco.viewer.launch_passive(self.model, self.data, key_callback=_key_callback)
-        self.viewer.cam.lookat[:] = np.array([0,0,0.8])
-        self.viewer.cam.distance = 3.0        
-        self.viewer.cam.azimuth = 30                         # 可根据需要调整角度
-        self.viewer.cam.elevation = -30                      # 负值表示从上往下看
-        
-        
+        self.viewer.cam.lookat[:] = np.array([0, 0, 0.8])
+        self.viewer.cam.distance = 3.0
+        self.viewer.cam.azimuth = 30
+        self.viewer.cam.elevation = -30
+
+        if self.is_recording:
+            print("Recording is True")
+            self.start_time = time.time()
+            self._video_buffer = []
+            viewport = self.viewer.viewport
+            self._frame_buffer = np.zeros((viewport.height, viewport.width, 3), dtype=np.uint8)
+            self._frame_size = (
+                viewport.height // self.macro_block_size * self.macro_block_size,
+                viewport.width // self.macro_block_size * self.macro_block_size
+            )
+
     def render_step(self):
         while self.is_pause:
             time.sleep(0.01)
-        
+
         if self.is_render:
             if self.viewer.is_running():
                 self.viewer.sync()
-            
-                # breakpoint()
+                if self.is_recording and (time.time() - self.start_time >= 1 / self.fps):
+                    self.start_time = time.time()
+                    mujoco.mjr_readPixels(self._frame_buffer, None, self.viewer.viewport, self.viewer.ctx)
+                    self._video_buffer.append(self._frame_buffer[::-1].copy()[:self._frame_size[0], :self._frame_size[1]])
             else:
+                if self.is_recording:
+                    print("Mujoco: Saving video ...")
+                    model_path: Path = self.cfg.checkpoint
+                    model_id = model_path.stem.replace('model_', 'ckpt_')
+                    video_path: Path = model_path.parent.parent / 'renderings' / model_id / f'video_{time.strftime("%Y%m%d_%H%M%S")}.mp4'
+                    video_path.parent.mkdir(parents=True, exist_ok=True)
+                    imageio.mimsave(video_path, self._video_buffer, fps=self.fps, macro_block_size=self.macro_block_size)
+                    print(f"Video saved to {video_path}")
                 raise RobotExitException("Mujoco Robot Exit")
-        ...
 
 
 class ViewerPlugin:
@@ -203,7 +216,7 @@ class ViewerPlugin:
                 raise RobotExitException("Mujoco Robot Exit")
         
 
-class MujocoRobot(URCIRobot, ViewerPlugin):
+class MujocoRobot(URCIRobot, MViewerPlugin):
     REAL=False
     
     HANG=False
